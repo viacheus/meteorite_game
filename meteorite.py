@@ -1,4 +1,5 @@
 import pygame
+from pygame import mixer
 
 from common import load_image
 import random
@@ -126,6 +127,7 @@ class Meteor(pygame.sprite.Sprite):
 
     def __init__(self, *group, problem_tuple=None):
         super().__init__(*group)
+        self.exp_sound = mixer.Sound("data/explosion_met.wav")
         self.image = load_image("meteor.png")
         self.problem, self.answer = problem_tuple if problem_tuple else random.choice(tuple(self.MATH_PROBLEMS))
 
@@ -148,6 +150,7 @@ class Meteor(pygame.sprite.Sprite):
     def update(self):
         self.rect = self.rect.move(0, 1)
         if self.rect.y > 635:
+            self.exp_sound.play()
             self.kill()
             return True
         return False

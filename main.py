@@ -2,6 +2,9 @@ import pygame
 import sys
 import os
 import random
+
+from pygame import mixer
+
 from character import character
 from earth import Earth
 from meteorite import Meteor
@@ -17,7 +20,15 @@ pygame.display.set_caption("Meteorite")
 clock = pygame.time.Clock()
 
 
+def start_background_music():
+    mixer.music.load("data/guitar1.wav")
+    mixer.music.set_volume(0.1)
+    mixer.music.play(loops=-1)
+
+
 def main():
+    start_background_music()
+    good_exp_sound = mixer.Sound("data/good_sound.wav")
     running = True
     game_over = False
     last_meteor_time = 0
@@ -31,11 +42,15 @@ def main():
     grass.rect.x = 0
     grass.rect.y = 700
     all_sprites.add(grass)
-
     score = 0
+    level = 1
     score_font = pygame.font.Font(None, 54)
     score_text = score_font.render(str(score) + "m", True, (255, 0, 0))
     score_rect = score_text.get_rect(center=(100, 100))
+
+    level_font = pygame.font.Font(None, 54)
+    level_text = score_font.render("current level" + str(level), True, (255, 0, 0))
+    level_rect = score_text.get_rect(center=(100, 100))
 
     game_over_font = pygame.font.Font(None, 74)
     game_over_text = game_over_font.render("GAME OVER", True, (255, 0, 0))
@@ -63,15 +78,18 @@ def main():
                     for meteor in meteors:
                         if meteor.check_answer(current_answer):
                             meteors_to_remove.add(meteor)
+                            good_exp_sound.play()
                             meteor.kill()
 
+                    prev_score = score
                     score += len(meteors_to_remove)
+                    if score // 3 != prev_score // 3:
+                        level += 1
 
                     meteors -= meteors_to_remove
                     current_answer = ""
 
         if not game_over:
-
 
             if current_time - last_meteor_time >= 3000:  # через сколько секунд спавн метеорита для лакримозы здесь всегда верное условие
                 meteor = Meteor()
@@ -90,10 +108,13 @@ def main():
         screen.fill((0, 0, 50))
 
         score_text = score_font.render(f"{score} m", True, (255, 255, 255))
-        score_rect = score_text.get_rect(center=(60, 15))
+        score_rect = score_text.get_rect(center=(60, 30))
+
+        level_text = level_font.render(f"Level {level}", True, (255, 255, 255))
+        level_rect = level_text.get_rect(center=(425, 30))
 
         screen.blit(score_text, score_rect)  # показывать счет
-
+        screen.blit(level_text, level_rect)
         all_sprites.draw(screen)
 
         if not game_over:
@@ -104,7 +125,6 @@ def main():
 
         pygame.display.flip()
         clock.tick(FPS)
-
 
     # pygame.quit()
     # sys.exit()
