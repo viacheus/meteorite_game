@@ -60,7 +60,7 @@ class Game:
 
                 prev_score = self.score
                 self.score += len(meteors_to_remove)
-                if self.score // 3 != prev_score // 3:
+                if self.score // 4 != prev_score // 4:
                     self.level_ctr += 1
                     if self.level_ctr == len(levels):
                         self.goto_final_screen = True
@@ -75,7 +75,7 @@ class Game:
         if self.current_time - self.last_meteor_time >= self.meteor_rate:  # через сколько секунд спавн метеорита для лакримозы здесь всегда верное условие
             meteor = Meteor(problem_tuple=self.level.get_problem())
             meteor.rect = meteor.image.get_rect()
-            meteor.rect.x = random.randrange(WINDOW_WIDTH - 40)
+            meteor.rect.x = random.randrange(WINDOW_WIDTH - 135)
             meteor.rect.y = 0
             self.all_sprites.add(meteor)
             self.meteors.add(meteor)

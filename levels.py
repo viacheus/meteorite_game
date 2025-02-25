@@ -12,8 +12,8 @@ class SumProblem(Problem):
         self.sign = "+"
 
     def get_problem(self):
-        a = random.randint(0, self.complexity * 3)
-        b = random.randint(0, self.complexity * 3)
+        a = random.randint(1, self.complexity * 4)
+        b = random.randint(1, self.complexity * 4)
         return (f"{a} + {b}", a + b)
 
 
@@ -23,8 +23,8 @@ class SubProblem(Problem):
         self.sign = "-"
 
     def get_problem(self):
-        a = random.randint(0, self.complexity * 3)
-        b = random.randint(0, a)
+        a = random.randint(1, self.complexity * 4)
+        b = random.randint(1, a)
         return (f"{a} - {b}", a - b)
 
 
@@ -39,8 +39,8 @@ class Level:
 
 levels = [
     Level(SumProblem(1)),
-    Level(SumProblem(1), SubProblem(1)),
-    Level(SumProblem(2), SubProblem(2)),
-    Level(SumProblem(3), SubProblem(3)),
-    Level(SumProblem(4), SubProblem(4))
+    Level(SumProblem(5), SubProblem(5)),
+    Level(SumProblem(10), SubProblem(10)),
+    Level(SumProblem(15), SubProblem(15)),
+    Level(SumProblem(30), SubProblem(30))
 ]

@@ -33,6 +33,6 @@ class StartScreen:
         screen.blit(start_text1, start_rect1)
 
         pygame.draw.rect(screen, (255, 255, 255), self.start_button)
-        button_text = self.font_text.render("Главное меню", True, (0, 0, 0))
+        button_text = self.font_text.render("начать игру", True, (0, 0, 0))
         button_rect = button_text.get_rect(center=self.start_button.center)
         screen.blit(button_text, button_rect)

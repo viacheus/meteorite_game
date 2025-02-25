@@ -20,7 +20,7 @@ class FinalScreen:
         self.game_over = False
 
     def handle_event(self, event):
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_r:
+        if event.type == pygame.KEYDOWN and (event.key == pygame.K_r or event.unicode.lower() == 'к'):
             self.goto_game = True
 
     def update(self):

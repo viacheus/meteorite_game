@@ -13,13 +13,17 @@ class Meteor(pygame.sprite.Sprite):
         self.image = load_image("meteor.png")
         self.problem, self.answer = problem_tuple
 
-        self.image_with_text = pygame.Surface((self.image.get_width(), self.image.get_height() + 20), pygame.SRCALPHA)
-        self.image_with_text.blit(self.image, (0, 5))
+        new_width = max(self.image.get_width(), 200)
+        self.image_with_text = pygame.Surface((new_width, self.image.get_height() + 20), pygame.SRCALPHA)
+
+        meteor_x = (new_width - self.image.get_width()) // 2
+        self.image_with_text.blit(self.image, (meteor_x, 5))
+
         font = pygame.font.Font(None, 24)
         text = font.render(self.problem, True, (0, 255, 0))
-        text_rect = text.get_rect(centerx=self.image.get_width() // 2,
-                                  top=self.image.get_height() + 5)
+        text_rect = text.get_rect(centerx=new_width // 2, top=self.image.get_height() + 5)
         self.image_with_text.blit(text, text_rect)
+
         self.image = self.image_with_text
         self.rect = self.image.get_rect()
 
