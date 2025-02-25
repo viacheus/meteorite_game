@@ -20,9 +20,9 @@ class StartScreen:
         pass
 
     def draw(self, screen):
-        screen.fill((20, 90, 80))
+        screen.fill((0, 0, 80))
 
-        title_text = self.font_title.render("Игра метеориты", True, (0, 0, 0))
+        title_text = self.font_title.render("Игра метеориты", True, (255, 255, 255))
         title_rect = title_text.get_rect(center=(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 - 100))
         screen.blit(title_text, title_rect)
 
